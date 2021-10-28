@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <!-- Page Header-->
+    <header class="masthead" style="background-image: url('static/assets/img/home-bg.jpg')">
+        <div class="container position-relative px-4 px-lg-5">
+            <div class="row gx-4 gx-lg-5 justify-content-center">
+                <div class="col-md-10 col-lg-8 col-xl-7">
+                    <div class="site-heading">
+                        <h1>XYZ Blog</h1>
+                        <span class="subheading">Experience a new gen of Blogging</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="container px-4 px-lg-5">
+        <div class="row gx-4 gx-lg-5 justify-content-center">
+            <div class="col-md-10 col-lg-8 col-xl-7">
+                {% if all_post.first() != None %}
+                    {% for post in all_post[:n] %}
+                        <div class="post-preview">
+                            <a href="post/{{post.id}}">
+                                <h2 class="post-title">{{ post.title }}</h2>
+                                <h3 class="post-subtitle">{{ post.subtitle }}</h3>
+                            </a>
+                            <p class="post-meta">
+                                Posted by
+                                <a href="#">{{ post.author }}</a>
+                                on {{ post.date.strftime("%B %d, %Y %I:%M %p") }}
+                            </p>
+                        </div>
+                        <hr class="my-4" />
+                    {% endfor %}
+                    <form class="d-flex justify-content-end mb-4" method="POST"><button type="submit" class="btn btn-primary text-white text-uppercase" >Older Posts →</button></form>
+                {% else %}
+                    {% if current_user.is_authenticated %}
+                        <div class="alert alert-warning text-center">Nothing to show! <a href="{{url_for('add_post_page')}}">Click Here</a> to add a new post! </div>
+                    {% else %}
+                        <div class="alert alert-warning text-center">Nothing to show! <a href="{{url_for('sign_up_page')}}">Click Here</a> to join now! </div>
+                    {% endif %}
+                {% endif%}
+
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

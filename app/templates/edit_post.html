@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+
+{% block content %}
+   <!-- Page Header-->
+   <header class="masthead" style="background-image: url('../static/assets/img/add-post-bg.jpg')">
+        <div class="container position-relative px-4 px-lg-5">
+            <div class="row gx-4 gx-lg-5 justify-content-center">
+                <div class="col-md-10 col-lg-8 col-xl-7">
+                    <div class="site-heading">
+                        <h1>Edit Post</h1>
+                        <span class="subheading">Edit your Blog</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content-->
+    <main class="mb-4">
+        <div class="container px-4 px-lg-5">
+            <div class="row gx-4 gx-lg-5 justify-content-center">
+                <div class="col-md-10 col-lg-8 col-xl-7">
+                    <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Doloribus facere minus quis!</p>
+                    <div class="my-5">
+                        <form id="contactForm" data-sb-form-api-token="API_TOKEN" method="POST" enctype="multipart/form-data">
+                            {{ form.hidden_tag() }}
+                            <div class="form-floating">
+                                {% if form.title.errors %}
+                                    {{ form.title(class="form-control is-invalid", placeholder="Title...", value=post.title) }}
+                                    {{ form.title.label() }}
+                                        <div class="invalid-feedback">
+                                            {% for err_msg in form.title.errors %}
+                                                <span>{{ err_msg }}</span>
+                                            {% endfor %}
+                                        </div>
+                                {% else %}
+                                    {{ form.title(class="form-control", placeholder="Title...", value=post.title) }}
+                                    {{ form.title.label() }}
+                                {% endif %}
+                            </div>
+                            <div class="form-floating">
+                                {% if form.subtitle.errors %}
+                                    {{ form.subtitle(class="form-control is-invalid", placeholder="Subtitle...", value=post.subtitle) }}
+                                    {{ form.subtitle.label() }}
+                                        <div class="invalid-feedback">
+                                            {% for err_msg in form.subtitle.errors %}
+                                                <span>{{ err_msg }}</span>
+                                            {% endfor %}
+                                        </div>
+                                {% else %}
+                                    {{ form.subtitle(class="form-control", placeholder="Subtitle...", autocomplete="off", value=post.subtitle) }}
+                                    {{ form.subtitle.label() }}
+                                {% endif %}
+                            </div>
+                            <div class="form-floating">
+                                <textarea name="body" id="body" style="height: 12rem;" class="form-control">{{post.body}}</textarea>
+                                <label for="body">Body</label>
+                            </div>
+                            <br/>
+
+                            {% if post.publish==False %}
+                                {{ form.publish(class="btn btn-warning text-uppercase") }}
+                            {% endif %}
+                            {{ form.save(class="btn btn-primary text-uppercase") }}
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+{% endblock %}

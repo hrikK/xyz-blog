@@ -1,0 +1,91 @@
+{% extends "base.html" %}
+
+{% block title %}
+    XYZ Blog - Log In
+{% endblock %}
+
+{% block content %}
+    <!-- Page Header-->
+    <header class="masthead" style="background-image: url('static/assets/img/sign-in-bg.jpg')">
+        <div class="container position-relative px-4 px-lg-5">
+            <div class="row gx-4 gx-lg-5 justify-content-center">
+                <div class="col-md-10 col-lg-8 col-xl-7">
+                    <div class="page-heading">
+                        <h1>Welcome Back</h1>
+                        <span class="subheading">Lorem ipsum dolor sit amet consectetur adipisicing elit. Beatae, corrupti.</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content-->
+    <main class="mb-4">
+        <div class="container px-4 px-lg-5">
+            <div class="row gx-4 gx-lg-5 justify-content-center">
+                <div class="col-md-10 col-lg-8 col-xl-7">
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquid, veniam voluptates? Ipsam?</p>
+                    {% with messages = get_flashed_messages(with_categories=True) %}
+                        {% if messages %}
+                            {% for category , err in messages %}
+                                <div class="alert alert-{{category}}" role="alert">
+                                    {{ err }}
+                                </div>
+                            {% endfor%}
+                        {% endif %}
+                    {% endwith %}
+                    <div class="my-5">
+                        <form id="contactForm" data-sb-form-api-token="API_TOKEN" method="POST">
+                            {{ form.hidden_tag() }}                            
+                            <div class="form-floating">
+                                {% if form.username.errors %}
+                                    {{ form.username(class="form-control is-invalid", placeholder="Enter username to use...") }}
+                                    {{ form.username.label() }}
+                                        <div class="invalid-feedback">
+                                            {% for err_msg in form.username.errors %}
+                                                <span>{{ err_msg }}</span>
+                                            {% endfor %}
+                                        </div>
+                                {% else %}
+                                    {{ form.username(class="form-control", placeholder="Enter username to use...") }}
+                                    {{ form.username.label() }}
+                                {% endif %}
+                            </div>
+                            <div class="form-floating">
+                                {% if form.email.errors %}
+                                    {{ form.email(class="form-control is-invalid", placeholder="Enter your email...") }}
+                                    {{ form.email.label() }}
+                                        <div class="invalid-feedback">
+                                            {% for err_msg in form.email.errors %}
+                                                <span>{{ err_msg }}</span>
+                                            {% endfor %}
+                                        </div>
+                                {% else %}
+                                    {{ form.email(class="form-control", placeholder="Enter your email...") }}
+                                    {{ form.email.label() }}
+                                {% endif %}
+                            </div>
+                            <div class="form-floating">
+                                {% if form.password.errors %}
+                                    {{ form.password(class="form-control is-invalid", placeholder="Enter password...") }}
+                                    {{ form.password.label() }}
+                                        <div class="invalid-feedback">
+                                            {% for err_msg in form.password.errors %}
+                                                <span>{{ err_msg }}</span>
+                                            {% endfor %}
+                                        </div>
+                                {% else %}
+                                    {{ form.password(class="form-control", placeholder="Enter password...") }}
+                                    {{ form.password.label() }}
+                                {% endif %}
+                            </div>
+                            <br/>
+
+                            {{ form.submit(class="btn btn-success text-uppercase") }}
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>  
+{% endblock %}
